@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Loukman Ouedraogo — Développeur Web & Mobile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --accent: #6C63FF;
+    --accent-light: #EEEDff;
+    --accent-dark: #4B44CC;
+    --teal: #1D9E75;
+    --teal-light: #E1F5EE;
+    --noir: #0D0D0D;
+    --gris1: #1a1a2e;
+    --gris2: #444455;
+    --gris3: #888899;
+    --border: #E8E8F0;
+    --bg: #F8F8FC;
+    --white: #ffffff;
+    --card-bg: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--noir);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(248,248,252,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: box-shadow 0.3s;
+  }
+
+  nav.scrolled { box-shadow: 0 2px 20px rgba(108,99,255,0.08); }
+
+  .nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--noir);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    color: var(--gris2);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.25s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    padding: 8px 20px;
+    background: var(--accent);
+    color: white !important;
+    border-radius: 8px;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    transition: background 0.2s, transform 0.15s !important;
+  }
+
+  .nav-cta:hover { background: var(--accent-dark) !important; transform: translateY(-1px); }
+  .nav-cta::after { display: none !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.07;
+    pointer-events: none;
+  }
+
+  .circle1 {
+    width: 500px; height: 500px;
+    background: var(--accent);
+    top: -100px; right: -100px;
+  }
+
+  .circle2 {
+    width: 300px; height: 300px;
+    background: var(--teal);
+    bottom: 50px; left: -80px;
+  }
+
+  .badge-dispo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: var(--teal-light);
+    border: 1px solid #9FE1CB;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #085041;
+    margin-bottom: 1.8rem;
+    width: fit-content;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .dot-pulse {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--teal);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero-tag {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.4rem;
+    max-width: 700px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero h1 .highlight {
+    position: relative;
+    display: inline-block;
+    color: var(--accent);
+  }
+
+  .hero h1 .muted { color: var(--gris3); font-weight: 400; }
+
+  .hero p {
+    font-size: 16px;
+    color: var(--gris2);
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+    line-height: 1.75;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 26px;
+    background: var(--accent);
+    color: white;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(108,99,255,0.25);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(108,99,255,0.35);
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 26px;
+    background: transparent;
+    color: var(--noir);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .hero-scroll {
+    margin-top: 4rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--gris3);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    animation: fadeUp 0.6s 0.6s ease both;
+  }
+
+  .scroll-line {
+    width: 40px;
+    height: 1px;
+    background: var(--gris3);
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 5rem 4rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 3rem;
+  }
+
+  .section-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--noir);
+    letter-spacing: -0.02em;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── SKILLS ── */
+  .skills-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .skill-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gris1);
+    transition: border-color 0.2s, transform 0.15s, color 0.2s;
+    cursor: default;
+  }
+
+  .skill-pill:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .skill-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+
+  /* ── PROJETS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .project-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 1.6rem;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .project-card:hover {
+    border-color: #c0bcff;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(108,99,255,0.12);
+  }
+
+  .project-card:hover::before { transform: scaleX(1); }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .project-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+
+  .project-arrow {
+    color: var(--gris3);
+    font-size: 18px;
+    transition: transform 0.2s, color 0.2s;
+  }
+
+  .project-card:hover .project-arrow {
+    color: var(--accent);
+    transform: translate(3px, -3px);
+  }
+
+  .project-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--noir);
+  }
+
+  .project-desc {
+    font-size: 13px;
+    color: var(--gris2);
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+  }
+
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: var(--accent-light);
+    color: var(--accent-dark);
+  }
+
+  .tag.teal {
+    background: var(--teal-light);
+    color: #085041;
+  }
+
+  /* ── CONTACT ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .contact-left h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.8rem;
+    color: var(--noir);
+  }
+
+  .contact-left p {
+    font-size: 15px;
+    color: var(--gris2);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-devis {
+    display: inline-block;
+    padding: 12px 24px;
+    background: var(--accent);
+    color: white;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 16px rgba(108,99,255,0.25);
+  }
+
+  .contact-devis:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+  }
+
+  .contact-right {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .contact-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 1rem 1.2rem;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .contact-card:hover {
+    border-color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  .contact-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .contact-info { flex: 1; }
+
+  .contact-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gris3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .contact-value {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--noir);
+  }
+
+  .contact-chevron {
+    color: var(--gris3);
+    font-size: 16px;
+    transition: color 0.2s;
+  }
+
+  .contact-card:hover .contact-chevron { color: var(--accent); }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--gris3);
+  }
+
+  footer span { color: var(--accent); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── CURSOR DOT ── */
+  .cursor-dot {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s;
+    mix-blend-mode: multiply;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 4rem 1.5rem; }
+    section { padding: 3.5rem 1.5rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .circle1 { width: 250px; height: 250px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cursor"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <span class="nav-logo"> <span>Loukman</span> Ouedraogo </span>
+  <ul class="nav-links">
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact" class="nav-cta">Demander un devis</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg-circle circle1"></div>
+  <div class="hero-bg-circle circle2"></div>
+
+  <div class="badge-dispo">
+    <span class="dot-pulse"></span>
+    Disponible pour des projets freelance
+  </div>
+
+  <p class="hero-tag">Développeur Web & Mobile · Jijel, Algérie</p>
+
+  <h1>
+    Je construis des <span class="highlight">expériences web</span><br>
+    <span class="muted">qui font la différence.</span>
+  </h1>
+
+  <p>
+    Étudiant passionné en 2ème année de développement web et mobile.
+    Je crée des sites rapides, modernes et adaptés à tous les écrans
+    pour les entreprises et entrepreneurs.
+  </p>
+
+  <div class="hero-cta">
+    <a href="#projets" class="btn-primary">
+      Voir mes projets
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+    </a>
+    <a href="#contact" class="btn-outline">
+      Me contacter
+    </a>
+  </div>
+
+  <div class="hero-scroll">
+    <span class="scroll-line"></span>
+    Défiler pour explorer
+  </div>
+</section>
+
+<!-- COMPÉTENCES -->
+<section id="competences" style="background: var(--white);">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Compétences</h2>
+    <span class="section-line"></span>
+  </div>
+  <div class="skills-wrap reveal">
+    <span class="skill-pill"><span class="skill-dot"></span>HTML / CSS</span>
+    <span class="skill-pill"><span class="skill-dot"></span>JavaScript</span>
+    <span class="skill-pill"><span class="skill-dot"></span>React</span>
+    <span class="skill-pill"><span class="skill-dot"></span>PHP / Laravel</span>
+    <span class="skill-pill"><span class="skill-dot"></span>Flutter</span>
+    <span class="skill-pill"><span class="skill-dot"></span>Design responsive</span>
+    <span class="skill-pill"><span class="skill-dot"></span>Git & GitHub</span>
+    <span class="skill-pill"><span class="skill-dot"></span>Montage vidéo</span>
+    <span class="skill-pill"><span class="skill-dot"></span>UI / UX Basics</span>
+  </div>
+</section>
+
+<!-- PROJETS -->
+<section id="projets">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Projets</h2>
+    <span class="section-line"></span>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-icon" style="background:#E1F5EE;">🍕</div>
+        <span class="project-arrow">↗</span>
+      </div>
+      <p class="project-title">Restaurant El Baraka</p>
+      <p class="project-desc">Site vitrine complet avec menu interactif, galerie photos et formulaire de contact. Design responsive pour mobile et desktop.</p>
+      <div class="tags">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">JavaScript</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-icon" style="background:#EEEDff;">🛍️</div>
+        <span class="project-arrow">↗</span>
+      </div>
+      <p class="project-title">Boutique Nour</p>
+      <p class="project-desc">Landing page e-commerce avec catalogue de produits filtrable, galerie et formulaire de commande en ligne.</p>
+      <div class="tags">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag teal">React</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-icon" style="background:#FBEAF0;">✂️</div>
+        <span class="project-arrow">↗</span>
+      </div>
+      <p class="project-title">Salon Beautée</p>
+      <p class="project-desc">Page de présentation moderne avec galerie avant/après, système de prise de rendez-vous et avis clients.</p>
+      <div class="tags">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">JS</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background: var(--white);">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Contact</h2>
+    <span class="section-line"></span>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-left reveal">
+      <h3>Vous avez un projet en tête ?</h3>
+      <p>
+        Que ce soit un site vitrine, une landing page ou une application mobile,
+        je suis disponible pour discuter de vos besoins et vous proposer
+        une solution adaptée à votre budget.
+      </p>
+      <p style="font-size:14px; color: var(--gris3); margin-bottom: 1.5rem;">
+        Réponse garantie sous 24h.
+      </p>
+      <a href="mailto:[ votre email ]" class="contact-devis">
+        Demander un devis gratuit →
+      </a>
+    </div>
+
+    <div class="contact-right reveal">
+
+      <a href="mailto:[ votre email ]" class="contact-card">
+        <div class="contact-icon" style="background:#EEEDff; font-size:20px;">✉️</div>
+        <div class="contact-info">
+          <p class="contact-label">Email</p>
+          <p class="contact-value">ouedraogoloukman54@gmail.com</p>
+        </div>
+        <span class="contact-chevron">›</span>
+      </a>
+
+      <a href="https://wa.me/[ votre numéro ]" class="contact-card" target="_blank">
+        <div class="contact-icon" style="background:#E1F5EE; font-size:20px;">📱</div>
+        <div class="contact-info">
+          <p class="contact-label">WhatsApp</p>
+          <p class="contact-value">+213670039731</p>
+        </div>
+        <span class="contact-chevron">›</span>
+      </a>
+
+      <a href="https://github.com/[ pseudo ]" class="contact-card" target="_blank">
+        <div class="contact-icon" style="background:#F1EFE8; font-size:20px;">🐙</div>
+        <div class="contact-info">
+          <p class="contact-label">GitHub</p>
+          <p class="contact-value">github.com/[ pseudo ]</p>
+        </div>
+        <span class="contact-chevron">›</span>
+      </a>
+
+      <a href="https://linkedin.com/in/[ pseudo ]" class="contact-card" target="_blank">
+        <div class="contact-icon" style="background:#E6F1FB; font-size:20px;">💼</div>
+        <div class="contact-info">
+          <p class="contact-label">LinkedIn</p>
+          <p class="contact-value">linkedin.com/in/[ pseudo ]</p>
+        </div>
+        <span class="contact-chevron">›</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  Conçu & développé par <span>Loukman Ouedraogo</span> · 2025
+</footer>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX - 4 + 'px';
+    cursor.style.top  = e.clientY - 4 + 'px';
+  });
+
+  document.querySelectorAll('a, button, .project-card, .skill-pill').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'scale(3)';
+      cursor.style.opacity   = '0.4';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'scale(1)';
+      cursor.style.opacity   = '1';
+    });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+
+</body>
+</html>
